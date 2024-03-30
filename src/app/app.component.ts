@@ -6,9 +6,5 @@ import { Component } from '@angular/core';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  menuOption: string;
-
-  displayOption(option) {
-    this.menuOption = option;
-  }
+  
 }
