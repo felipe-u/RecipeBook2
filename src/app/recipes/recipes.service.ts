@@ -8,25 +8,27 @@ import { Subject } from "rxjs";
 export class RecipesService {
     recipesChanged = new Subject<Recipe[]>();
 
-    private recipes: Recipe[] = [
-        new Recipe('A Test Recipe', 'This is simply a test',
-            'https://www.howtocook.recipes/wp-content/uploads/2021/05/Ratatouille-recipe-500x500.jpg',
-            [
-                new Ingredient('Cucumber', 4),
-                new Ingredient('Onion', 4)
-            ]),
-        new Recipe('A Test Recipe 2', 'This is simply a test 2',
-            'https://www.inspiredtaste.net/wp-content/uploads/2022/11/Fluffy-Pancakes-Recipe-Video.jpg',
-            [
-                new Ingredient('Flour', 20),
-                new Ingredient('Blueberry', 10)
-            ])
-    ];
+    // private recipes: Recipe[] = [
+    //     new Recipe('A Test Recipe', 'This is simply a test',
+    //         'https://www.howtocook.recipes/wp-content/uploads/2021/05/Ratatouille-recipe-500x500.jpg',
+    //         [
+    //             new Ingredient('Cucumber', 4),
+    //             new Ingredient('Onion', 4)
+    //         ]),
+    //     new Recipe('A Test Recipe 2', 'This is simply a test 2',
+    //         'https://www.inspiredtaste.net/wp-content/uploads/2022/11/Fluffy-Pancakes-Recipe-Video.jpg',
+    //         [
+    //             new Ingredient('Flour', 20),
+    //             new Ingredient('Blueberry', 10)
+    //         ])
+    // ];
+    private recipes: Recipe[] = [];
 
     constructor(private shoppingListService: ShoppingListService) {}
 
-    emitRecipesChanges() {
-        this.recipesChanged.next(this.recipes.slice());
+    setRecipes(recipes: Recipe[]) {
+        this.recipes = recipes;
+        this.emitRecipesChanges();
     }
 
     getRecipes() {
@@ -54,5 +56,9 @@ export class RecipesService {
     deleteRecipe(index: number) {
         this.recipes.splice(index, 1);
         this.emitRecipesChanges();
+    }
+
+    emitRecipesChanges() {
+        this.recipesChanged.next(this.recipes.slice());
     }
 }
